@@ -1,0 +1,43 @@
+public class Solution {
+	public static int cutRod(int price[], int n) {
+     //space optimized way with 1D array.
+        int pre[]=new int[n+1];
+        int dp[][]=new int[n][n+1];
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<=n;j++)
+            {
+                dp[i][j]=0;
+            }
+        }
+        for(int m=1;m<=n;m++)
+        {
+          pre[m]=price[0]*m;
+        }
+        for(int ind=1;ind<n;ind++)
+        {
+            for(int k=0;k<=n;k++)
+            {
+                int notTake=0+pre[k];
+                int len=ind+1;
+        int take=Integer.MIN_VALUE;
+        if(len<=k)  take=price[ind]+pre[k-len];
+        pre[k]= Math.max(take,notTake);
+            }
+        }
+        
+        return pre[n];
+	}
+   //Memoization
+    public static int ways(int price[],int ind,int n,int [][]dp)
+    {
+        if(ind==0)  return price[0]*n;
+        if(ind<0) return 0;
+        if(dp[ind][n]!=-1) return dp[ind][n];
+        int notTake=0+ways(price,ind-1,n,dp);
+        int len=ind+1;
+        int take=Integer.MIN_VALUE;
+        if(len<=n)  take=price[ind]+ways(price,ind,n-len,dp);
+        return dp[ind][n]= Math.max(take,notTake);
+    }
+}
