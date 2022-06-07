@@ -1,0 +1,46 @@
+import java.util.ArrayList;
+
+public class Solution {
+// optimized aprroach spapce optimization with 1D array.....
+	public static int maxProfit(ArrayList<Integer> values, ArrayList<Integer> weights, int n, int w) {
+		// Write your code here.
+        int[][] dp=new int[n][w+1];
+        int [] pre=new int[w+1];
+//         for(int i=0;i<n;i++)
+//         {
+//             for(int j=0;j<=w;j++)
+//                 dp[i][j]=-1;
+//         }
+        for(int i=weights.get(0);i<=w;i++)
+        {
+             pre[i]=values.get(0);
+        }
+        for(int i=1;i<n;i++)
+        {
+            for(int j=w;j>=0;j--)
+            {
+                int nt=pre[j];
+                int t=Integer.MIN_VALUE;
+                if(weights.get(i)<=j) t=values.get(i)+pre[j-weights.get(i)];
+                pre[j]=Math.max(nt,t);
+            }
+        }
+        return pre[w];
+	}
+//Recursion memoization
+    public static int ways(ArrayList<Integer> v,ArrayList<Integer> we,int ind,int w,int [][] dp)
+    {
+        if(ind==0)
+        {
+           if(we.get(0)<=w) return v.get(0);
+           return 0;
+        }
+        if(dp[ind][w]!=-1) return dp[ind][w];
+        int nt=ways(v,we,ind-1,w,dp);
+        int t=Integer.MIN_VALUE;
+        if(we.get(ind)<=w) t=v.get(ind)+ways(v,we,ind-1,w-we.get(ind),dp);
+        return dp[ind][w]=Math.max(nt,t);
+       
+        
+    }
+}

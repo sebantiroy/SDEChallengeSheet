@@ -1,0 +1,34 @@
+
+public class Solution {
+//optimized space
+
+	public static int lcs(String s, String t) {
+		//Your code goes here
+        int n=s.length();
+        int m=t.length();   
+        int pre[]=new int[m+1];
+         
+        for(int i=1;i<=n;i++)
+        {
+        int curr[]=new int[m+1];
+            
+            for(int j=1;j<=m;j++)
+            {
+                if(s.charAt(i-1)==t.charAt(j-1)) { curr[j]=1+ pre[j-1];}
+                else  {curr[j]=0+Math.max(pre[j],curr[j-1]);}
+            }        
+            pre=curr;       
+        }
+        return pre[m];
+    }
+// recursive memoization
+    public static int ways(String s,String t,int i,int j,int [][] dp)
+    {
+        if(i==0 || j==0) return 0;
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(s.charAt(i-1)==t.charAt(j-1))
+            return dp[i][j]=1+ways(s,t,i-1,j-1,dp);
+        return dp[i][j]=0+Math.max(ways(s,t,i-1,j,dp),ways(s,t,i,j-1,dp));
+    }
+
+}
