@@ -1,0 +1,55 @@
+import java.util.*;
+public class Solution {
+// Algo aproach using o(n) space but o(n2)tc.
+	public static int longestIncreasingSubsequence(int arr[]) {
+		//Your code goes here
+        int n=arr.length;
+//         int dp[]=new int[n];
+//         for(int i=0;i<n;i++) dp[i]=1;
+//         int maxi=1;
+//         for(int i=1;i<n;i++)
+//         {
+//             for(int prev=0;prev<i;prev++)
+//             {
+//                 if(arr[prev]<arr[i])
+//                 {
+//                     dp[i]=Math.max(1+dp[prev],dp[i]);
+//                 }
+//             }
+//             maxi=Math.max(maxi,dp[i]);
+//         }
+//         return maxi;
+        return(lcii(arr,n));
+	}
+//Recursive approach
+
+    public static int lis(int arr[],int ind,int prev,int n)
+    {
+        if(ind==n) return 0;
+        int nt=lis(arr,ind+1,prev,n);
+        int t=0;
+        if(prev==-1|| arr[prev]<arr[ind]) t=1+lis(arr,ind+1,ind,n);
+        return Math.max(t,nt);
+    }
+// Using Binary search 
+    public static int lcii(int arr[],int n)
+    {
+        List<Integer> l=new ArrayList<>();
+        l.add(arr[0]);
+        for(int i=1;i<n;i++)
+        {
+            int le=l.get(l.size()-1);
+            if(le<arr[i])
+                l.add(arr[i]);
+            else
+            {
+                int ind=Collections.binarySearch(l,arr[i]);
+                if(ind<0) ind=Math.abs(ind)-1;
+                l.set(ind,arr[i]);
+            }
+        }
+        return l.size();
+        
+    }
+
+}
