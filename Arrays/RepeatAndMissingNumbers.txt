@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        
+        int num[]=new int[n];
+        for(int i=0;i<n;i++) num[i]=arr.get(i);
+        int set_bit=0;
+        int x=0,y=0;
+        int xor=0;
+        for(int i=0;i<n;i++)
+            xor=xor^num[i];
+        for(int i=1;i<=n;i++)
+            xor=xor^i;
+        set_bit=xor& ~(xor-1);
+        for(int i=0;i<n;i++)
+        {
+            if((num[i] & set_bit)!=0) x=x^num[i];
+            else y=y^num[i];
+        }
+        for(int i=1;i<=n;i++)
+        {
+            if((i & set_bit)!=0) x=x^i;
+            else y=y^i;
+        }
+        int miss=0,rep=0;
+        for(int i=0;i<n;i++)
+        {
+            if(x==num[i])
+            {
+                rep=x;
+                miss=y;
+            }
+            else if(y==num[i])
+            {
+                rep=y;
+                miss=x;
+            }
+        }
+        return new int[]{miss,rep};
+    }
+}

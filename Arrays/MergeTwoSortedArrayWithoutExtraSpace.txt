@@ -1,0 +1,88 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int[] ninjaAndSortedArrays(int arr1[], int arr2[], int m, int n) {
+        int a[]=new int[n+m];
+        merge(arr1,arr2,n,m);
+//         for(int i=0;i<m;i++)
+//         {
+//             if(arr1[i]!=0 && arr2[0]<arr1[i])
+//             {
+//                 swap(i,arr1,arr2);
+//             }
+            
+//         int ind=0;
+//     for(int i=0;i<m;i++)
+//     {
+//             a[ind++]=arr1[i];
+        
+//     }
+//      for(int i=0;i<n;i++) a[ind++]=arr2[i];
+//      return a;  
+//         int gap=(int) Math.ceil((double)(n + m) / 2.0);
+//         while(gap>0)
+//         {
+//             int i=0;
+//             int j=gap;
+//             while(j<(n+m))
+//             {
+//                 if(j<n && i<n && arr1[i]>arr2[j])
+//                     swap1(arr1[i],arr2[j]);
+//                 else if(j>=n && i<n && arr1[i]>arr2[j-n])
+//                     swap1(arr1[i],arr2[j-n]);
+//                 else if(j>=n && i>=n &&  arr1[i-n]>arr2[j-n])
+//                     swap1(arr1[i-n],arr2[j-n]);
+//                 i++;
+//                 j++;
+//             }
+//             if(gap==1) gap=0;
+//             else gap=(int)Math.ceil ((double) (gap/2.0));
+//         }
+//         int ind=0;
+//     for(int i=0;i<m;i++)
+//     {
+//             a[ind++]=arr1[i];
+        
+//     }
+//      for(int i=0;i<n;i++) a[ind++]=arr2[i];
+     return arr1; 
+   }
+     
+    public static void swap(int i,int[] a,int [] b)
+    {
+        int temp=a[i];
+        a[i]=b[0];
+        b[0]=temp;
+    }
+    public static void swap1(int a,int b)
+    {
+        int temp=a;
+        a=b;
+        b=temp;
+    }
+   public static  void merge(int ar1[], int ar2[], int n, int m) {
+  // code here 
+  int gap =(int) Math.ceil((double)(n + m) / 2.0);
+  while (gap > 0) {
+    int i = 0;
+    int j = gap;
+    while (j < (n + m)) {
+      if (j < n && ar1[i] > ar1[j]) {
+        swap1(ar1[i], ar1[j]);
+      } else if (j >= n && i < n && ar1[i] > ar2[j - n]) {
+        swap1(ar1[i], ar2[j - n]);
+      } else if (j >= n && i >= n && ar2[i - n] > ar2[j - n]) {
+        swap1(ar2[i - n], ar2[j - n]);
+      }
+      j++;
+      i++;
+    }
+    if (gap == 1) {
+      gap = 0;
+    } else {
+      gap =(int) Math.ceil((double) gap / 2.0);
+    }
+  }
+}
+    
+}
